@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @Transactional
@@ -35,7 +34,7 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
         }
 
         Integer size = dto.getSize();
-        if (Objects.isNull(size) || size.equals(0)){
+        if (size == null || size.equals(0)){
             size = 10;
         }
         size = Math.min(size, MAX_PAGE_SIZE);
