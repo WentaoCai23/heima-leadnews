@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-@SpringBootTest
+@SpringBootTest(classes = MinIOApplication.class)
 @RunWith(SpringRunner.class)
 public class MinIOTest {
 
