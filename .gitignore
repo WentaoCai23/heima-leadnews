@@ -14,4 +14,7 @@
 /heima-leadnews-test/freemarker-demo/target/
 /heima-leadnews-test/minio-demo/target/
 /heima-leadnews-utils/target/
-/e:/
+/logs/
+/heima-leadnews-service/heima-leadnews-article/logs/
+/heima-leadnews-service/heima-leadnews-user/logs/
+/heima-leadnews-service/heima-leadnews-wemedia/logs/
