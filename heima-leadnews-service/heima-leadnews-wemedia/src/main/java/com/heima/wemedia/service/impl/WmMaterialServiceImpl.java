@@ -1,9 +1,14 @@
 package com.heima.wemedia.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.heima.file.service.FileStorageService;
+import com.heima.model.common.dtos.PageResponseResult;
 import com.heima.model.common.dtos.ResponseResult;
 import com.heima.model.common.enums.AppHttpCodeEnum;
+import com.heima.model.wemedia.dtos.WmMaterialDto;
 import com.heima.model.wemedia.pojos.WmMaterial;
 import com.heima.utils.thread.WmThreadLocalUtil;
 import com.heima.wemedia.mapper.WmMaterialMapper;
@@ -29,6 +34,9 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
 
     @Override
     public ResponseResult uploadPicture(MultipartFile multipartFile) {
+        if (WmThreadLocalUtil.getUser() == null){
+            return ResponseResult.errorResult(AppHttpCodeEnum.NO_USER_LOGIN_INFORMATION);
+        }
         if (multipartFile == null || multipartFile.getSize() == 0){
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
@@ -51,5 +59,24 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
         wmMaterial.setCreatedTime(new Date());
         save(wmMaterial);
         return ResponseResult.okResult(wmMaterial);
+    }
+
+    @Override
+    public ResponseResult findList(WmMaterialDto dto) {
+        if (WmThreadLocalUtil.getUser() == null){
+            return ResponseResult.errorResult(AppHttpCodeEnum.NO_USER_LOGIN_INFORMATION);
+        }
+        dto.checkParam();
+        IPage page = new Page(dto.getPage(), dto.getSize());
+        LambdaQueryWrapper<WmMaterial> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        if(dto.getIsCollection() != null && dto.getIsCollection() == 1){
+            lambdaQueryWrapper.eq(WmMaterial::getIsCollection, dto.getIsCollection());
+        }
+        lambdaQueryWrapper.eq(WmMaterial::getUserId, WmThreadLocalUtil.getUser().getId());
+        lambdaQueryWrapper.orderByDesc(WmMaterial::getCreatedTime);
+        page = page(page, lambdaQueryWrapper);
+        PageResponseResult responseResult = new PageResponseResult(dto.getPage(), dto.getSize(), (int) page.getTotal());
+        responseResult.setData(page.getRecords());
+        return responseResult;
     }
 }

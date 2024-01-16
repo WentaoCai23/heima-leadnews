@@ -19,6 +19,7 @@ public enum AppHttpCodeEnum {
     PARAM_INVALID(501,"无效参数"),
     PARAM_IMAGE_FORMAT_ERROR(502,"图片格式有误"),
     SERVER_ERROR(503,"服务器内部错误"),
+    NO_USER_LOGIN_INFORMATION(503, "没有用户登陆信息"),
     // 数据错误 1000~2000
     DATA_EXIST(1000,"数据已经存在"),
     AP_USER_DATA_NOT_EXIST(1001,"ApUser数据不存在"),
