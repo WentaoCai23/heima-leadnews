@@ -121,11 +121,11 @@ public class WmNews implements Serializable {
     @Alias("WmNewsStatus")
     public enum Status{
         NORMAL((short)0),SUBMIT((short)1),FAIL((short)2),ADMIN_AUTH((short)3),ADMIN_SUCCESS((short)4),SUCCESS((short)8),PUBLISHED((short)9);
-        short code;
-        Status(short code){
+        Short code;
+        Status(Short code){
             this.code = code;
         }
-        public short getCode(){
+        public Short getCode(){
             return this.code;
         }
     }
