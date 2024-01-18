@@ -1,6 +1,6 @@
 package com.heima.article.feign;
 
-import com.heima.apis.IArticleClient;
+import com.heima.apis.article.IArticleClient;
 import com.heima.article.service.ApArticleService;
 import com.heima.model.article.dtos.ArticleDto;
 import com.heima.model.common.dtos.ResponseResult;

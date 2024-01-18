@@ -1,4 +1,4 @@
-package com.heima.apis;
+package com.heima.apis.article;
 
 import com.heima.apis.article.fallback.IArticleClientFallback;
 import com.heima.model.article.dtos.ArticleDto;
@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface IArticleClient {
 
     @PostMapping("/api/v1/article/save")
-    public ResponseResult saveArticle(@RequestBody ArticleDto dto);
+    ResponseResult saveArticle(@RequestBody ArticleDto dto);
 
 }
